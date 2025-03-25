@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Type Master Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #81ecec, #74b9ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+        .display-letter {
+            font-size: 60px;
+            margin: 20px 0;
+            height: 80px;
+            color: #2d3436;
+        }
+        .start-btn {
+            background-color: #00cec9;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .start-btn:hover {
+            background-color: #0984e3;
+        }
+        .score {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #2d3436;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Type Master Game</h2>
+        <div class="display-letter">Press Start</div>
+        <button type="button" class="start-btn">Start Game</button>
+        <div class="score">Score: <span class="score-num">0</span></div>
+    </div>
+    <script>
+        const displayLetter = document.querySelector('.display-letter');
+        const startBtn = document.querySelector('.start-btn');
+        const scoreNum = document.querySelector('.score-num');
+        let currentLetter = '';
+        let score = 0;
+
+        function generateLetter() {
+            currentLetter = String.fromCharCode(Math.floor(Math.random() * 26) + 65); // A-Z
+            displayLetter.textContent = currentLetter;
+        }
+
+        startBtn.addEventListener('click', function() {
+            score = 0;
+            scoreNum.textContent = score;
+            generateLetter();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            // Compare uppercase characters
+            const keyPressed = e.key.toUpperCase();
+            console.log(e.view);
+            
+            if (currentLetter && keyPressed === currentLetter) {
+                // Increase score and clear current letter display
+                score++;
+                scoreNum.textContent = score;
+                displayLetter.textContent = '';
+                // Generate new letter after a short delay (e.g., 800ms)
+                setTimeout(generateLetter, 80);
+            }
+        });
+    </script>
+</body>
+</html>
